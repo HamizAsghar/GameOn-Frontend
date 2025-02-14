@@ -1,30 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Headandfoot from "./../Layout/Headandfoot";
 import "../Styles/Contact.css";
 
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, message } = formData;
+
+    const whatsappNumber = "923366190190";
+
+    const text = `Name: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
+
+    window.open(`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${text}`, "_blank");
+  };
+
   return (
     <Headandfoot>
       <div className="contact-page">
-
-        {/* <div className="banner position-relative">
-          <img
-            src="/contact-banner.jpg"
-            alt="Contact Us Banner"
-            className="img-fluid w-100"
-          />
-          <div className="banner-text position-absolute top-50 start-50 translate-middle text-white">
-            <h1 className="text-white">Contact Us</h1>
-          </div>
-        </div> */}
-
         <div className="text-center m-4">
           <h1>Get in Touch</h1>
         </div>
 
         <div className="container">
           <div className="row align-items-center">
-            
             <div className="col-md-6">
               <p>
                 Have questions or need assistance? We are here to help! Whether
@@ -33,12 +41,10 @@ const ContactUs = () => {
               </p>
               <p>
                 Use the form to send us a message, and we’ll get
-                back to you as soon as possible. Your queries and feedback are
-                valuable to us, and we strive to provide the best support
-                experience.
+                back to you as soon as possible.
               </p>
               <p>
-                Prefer other ways to reach us? call us at
+                Prefer other ways to reach us? Call us at
                 <strong> 041-2422722</strong>. We look forward to hearing from
                 you!
               </p>
@@ -46,7 +52,7 @@ const ContactUs = () => {
 
             <div className="col-md-6 mb-4">
               <div className="form-container p-4">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">
                       Name
@@ -56,6 +62,8 @@ const ContactUs = () => {
                       className="form-control"
                       id="name"
                       placeholder="Enter your name"
+                      value={formData.name}
+                      onChange={handleChange}
                       required
                     />
                   </div>
@@ -68,6 +76,8 @@ const ContactUs = () => {
                       className="form-control"
                       id="email"
                       placeholder="Enter your email"
+                      value={formData.email}
+                      onChange={handleChange}
                       required
                     />
                   </div>
@@ -80,11 +90,13 @@ const ContactUs = () => {
                       id="message"
                       rows="5"
                       placeholder="Enter your message"
+                      value={formData.message}
+                      onChange={handleChange}
                       required
                     ></textarea>
                   </div>
                   <button type="submit" className="btn btn-primary w-100">
-                    Submit
+                    Send Message
                   </button>
                 </form>
               </div>
@@ -92,7 +104,7 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-      </Headandfoot>
+    </Headandfoot>
   );
 };
 

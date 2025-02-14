@@ -8,7 +8,7 @@ const AboutMe = () => {
     <div className="pictures-container">
       <div className="picture-card">
         <img 
-          src="moiz.jpg" 
+          src="moiz.jpeg" 
           alt="Person 1" 
           className="picture" 
         />

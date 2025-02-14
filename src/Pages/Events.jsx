@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Headandfoot from "../Layout/Headandfoot";
-import { Link } from "react-router-dom";  
+import { Link } from "react-router-dom";
+import Loader from "../Layout/Loader";
 
 const Events = () => {
   // const [showModal, setShowModal] = useState(false);
   // const [modalContent, setModalContent] = useState(null);
   // const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
+
+  const [loading, setLoading] = useState(true);
 
   const events = [
     {
@@ -14,7 +17,7 @@ const Events = () => {
       description:
         "Join the thrilling cricket matches and showcase your batting and bowling skills! The Cricket Championship is a test of teamwork, strategy, and resilience. Each over brings a new challenge, demanding players to adapt and execute their plans with precision. ",
       join: "Take Part",
-      link: "/register-now" 
+      link: "/register-now"
     },
     {
       image: "football.jpg",
@@ -83,9 +86,12 @@ const Events = () => {
   ];
 
   return (
-    <Headandfoot>
-      <div>
-        {/* <div
+    <>
+      {loading && <Loader onFinish={() => setLoading(false)} />}
+      {!loading && (
+        <Headandfoot>
+          <div>
+            {/* <div
           className="text-center text-white bg-dark py-5"
           style={{
             backgroundImage: `url('events.jpg')`,
@@ -98,38 +104,39 @@ const Events = () => {
           </div>
         </div> */}
 
-        <div className="container py-5">
-          <h1 className="d-flex justify-content-center">
-            Know about our Top Events
-          </h1>
-          {events.map((event, index) => (
-            <div
-              className={`row align-items-center my-4 ${
-                index % 2 === 0 ? "" : "flex-row-reverse"
-              }`}
-              key={index}
-            >
-              <div className="col-md-6">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="img-fluid rounded"
-                />
-              </div>
-              <div className="col-md-6 p-4">
-                <h3 className="d-flex justify-content-center">{event.title}</h3>
-                <p className="custom-text-justify">{event.description}</p>
-                <Link to={event.link}>
-                  <button className="btn btn-primary mx-auto d-block">
-                    {event.join}
-                  </button>
-                </Link>
-              </div>
+            <div className="container py-5">
+              <h1 className="d-flex justify-content-center">
+                Know about our Top Events
+              </h1>
+              {events.map((event, index) => (
+                <div
+                  className={`row align-items-center my-4 ${index % 2 === 0 ? "" : "flex-row-reverse"
+                    }`}
+                  key={index}
+                >
+                  <div className="col-md-6">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="img-fluid rounded"
+                    />
+                  </div>
+                  <div className="col-md-6 p-4">
+                    <h3 className="d-flex justify-content-center">{event.title}</h3>
+                    <p className="custom-text-justify">{event.description}</p>
+                    <Link to={event.link}>
+                      <button className="btn btn-primary mx-auto d-block">
+                        {event.join}
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </Headandfoot>
+          </div>
+        </Headandfoot>
+      )}
+    </>
   );
 };
 
