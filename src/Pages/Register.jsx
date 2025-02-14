@@ -11,7 +11,7 @@ const Register = () => {
     password: "",
     phone: "",
     answer: "",
-    role: "user", // Default role can be set to 'user'
+    role: "user", 
   });
 
   const [error, setError] = useState(null);
